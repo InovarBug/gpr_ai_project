@@ -71,10 +71,10 @@ class CNNGPR:
         print("Iniciando o treinamento do modelo")
         history = self.model.fit(
             train_generator,
-            steps_per_epoch=1,
-            epochs=1,
+            steps_per_epoch=len(train_generator),
+            epochs=epochs,
             validation_data=validation_generator,
-            validation_steps=1
+            validation_steps=len(validation_generator)
         )
 
         print("Salvando o modelo treinado como cnn_model_trained.h5")
