@@ -71,10 +71,10 @@ class CNNGPR:
         print("Iniciando o treinamento do modelo")
         history = self.model.fit(
             train_generator,
-            steps_per_epoch=train_generator.samples // batch_size,
-            epochs=epochs,
+            steps_per_epoch=1,
+            epochs=1,
             validation_data=validation_generator,
-            validation_steps=validation_generator.samples // batch_size
+            validation_steps=1
         )
 
         print("Salvando o modelo treinado como cnn_model_trained.h5")
@@ -112,4 +112,4 @@ class CNNGPR:
         results = self.model.evaluate(test_generator)
 if __name__ == '__main__':
     cnn_gpr = CNNGPR()
-    cnn_gpr.train(train_dir='gpr_ai_project/data/train', validation_dir='gpr_ai_project/data/validation', epochs=5, batch_size=2)
+    cnn_gpr.train(train_dir='data/train', validation_dir='data/validation', epochs=5, batch_size=2)
