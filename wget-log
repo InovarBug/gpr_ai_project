@@ -1,0 +1,16 @@
+--2024-10-13 19:39:38--  https://drive.google.com/uc?id=1m56aXM7P-UKVzbGb0hLFw5TxzlezQHVN
+Resolving drive.google.com (drive.google.com)... 142.251.179.113, 142.251.179.102, 142.251.179.138, ...
+Connecting to drive.google.com (drive.google.com)|142.251.179.113|:443... connected.
+HTTP request sent, awaiting response... 303 See Other
+Location: https://drive.usercontent.google.com/download?id=1m56aXM7P-UKVzbGb0hLFw5TxzlezQHVN [following]
+--2024-10-13 19:39:38--  https://drive.usercontent.google.com/download?id=1m56aXM7P-UKVzbGb0hLFw5TxzlezQHVN
+Resolving drive.usercontent.google.com (drive.usercontent.google.com)... 64.233.180.132, 2607:f8b0:4004:c21::84
+Connecting to drive.usercontent.google.com (drive.usercontent.google.com)|64.233.180.132|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 11043906 (11M) [application/octet-stream]
+Saving to: ‘cmu-gpr-dataset.zip’
+
+cmu-gpr-dataset.zip   0%[                    ]       0  --.-KB/s               cmu-gpr-dataset.zip 100%[===================>]  10.53M  --.-KB/s    in 0.1s    
+
+2024-10-13 19:39:46 (84.2 MB/s) - ‘cmu-gpr-dataset.zip’ saved [11043906/11043906]
+
