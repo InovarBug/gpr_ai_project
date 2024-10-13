@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPR AI Patterns</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">GPR AI Patterns</h1>
+        <form action="/add_pattern" method="post" enctype="multipart/form-data" class="mt-4">
+            <div class="form-group">
+                <label for="name">Pattern Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="pattern">Pattern File</label>
+                <input type="file" class="form-control-file" id="pattern" name="pattern" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Pattern</button>
+        </form>
+        <h2 class="mt-5">Existing Patterns</h2>
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for id, pattern in patterns.items() %}
+                <tr>
+                    <td>{{ id }}</td>
+                    <td>{{ pattern.name }}</td>
+                    <td>{{ pattern.description }}</td>
+                    <td>
+                        <form action="/delete_pattern" method="post" style="display:inline;">
+                            <input type="hidden" name="pattern_id" value="{{ id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                        <form action="/update_pattern" method="post" style="display:inline;">
+                            <input type="hidden" name="pattern_id" value="{{ id }}">
+                            <input type="text" name="name" value="{{ pattern.name }}" required>
+                            <input type="text" name="description" value="{{ pattern.description }}" required>
+                            <button type="submit" class="btn btn-warning btn-sm">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
