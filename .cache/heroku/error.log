@@ -15,3 +15,17 @@
 2024-10-13T18:21:36.253Z     at async Scale._run (/usr/local/lib/heroku/node_modules/@oclif/core/lib/command.js:117:22)
 2024-10-13T18:21:36.253Z     at async Config.runCommand (/usr/local/lib/heroku/node_modules/@oclif/core/lib/config/config.js:314:25)
 2024-10-13T18:21:36.253Z     at async Object.run (/usr/local/lib/heroku/node_modules/@oclif/core/lib/main.js:89:16)
+2024-10-13T18:21:44.178Z Error: Couldn't find that process type (web).
+2024-10-13T18:21:44.178Z Error ID: not_found
+2024-10-13T18:21:44.178Z     at Function.request (/usr/local/lib/heroku/node_modules/@heroku-cli/command/lib/api-client.js:187:27)
+2024-10-13T18:21:44.178Z     at async Scale.run (/usr/local/lib/heroku/lib/commands/ps/scale.js:50:41)
+2024-10-13T18:21:44.178Z     at async Scale._run (/usr/local/lib/heroku/node_modules/@oclif/core/lib/command.js:117:22)
+2024-10-13T18:21:44.178Z     at async Config.runCommand (/usr/local/lib/heroku/node_modules/@oclif/core/lib/config/config.js:314:25)
+2024-10-13T18:21:44.178Z     at async Object.run (/usr/local/lib/heroku/node_modules/@oclif/core/lib/main.js:89:16)
+2024-10-13T18:24:10.975Z Error: Couldn't find that process type (web).
+2024-10-13T18:24:10.975Z Error ID: not_found
+2024-10-13T18:24:10.975Z     at Function.request (/usr/local/lib/heroku/node_modules/@heroku-cli/command/lib/api-client.js:187:27)
+2024-10-13T18:24:10.975Z     at async Scale.run (/usr/local/lib/heroku/lib/commands/ps/scale.js:50:41)
+2024-10-13T18:24:10.975Z     at async Scale._run (/usr/local/lib/heroku/node_modules/@oclif/core/lib/command.js:117:22)
+2024-10-13T18:24:10.975Z     at async Config.runCommand (/usr/local/lib/heroku/node_modules/@oclif/core/lib/config/config.js:314:25)
+2024-10-13T18:24:10.975Z     at async Object.run (/usr/local/lib/heroku/node_modules/@oclif/core/lib/main.js:89:16)
