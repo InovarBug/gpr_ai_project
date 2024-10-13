@@ -2,6 +2,7 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import sqlite3
 import pickle
@@ -9,7 +10,8 @@ import os
 import tensorflow as tf
 
 app = FastAPI()
-templates = Jinja2Templates(directory="./templates")
+app.mount("/static", StaticFiles(directory="gpr_ai_project/static"), name="static")
+templates = Jinja2Templates(directory="gpr_ai_project/templates")
 
 class Pattern(BaseModel):
     name: str
@@ -106,3 +108,7 @@ async def delete_pattern(request: Request, pattern_id: int = Form(...)):
 async def update_pattern(request: Request, pattern_id: int = Form(...), name: str = Form(...), description: str = Form(...)):
     ai.update_pattern(pattern_id, name, description)
     return templates.TemplateResponse("index.html", {"request": request, "patterns": ai.patterns_db})
+
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
