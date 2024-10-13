@@ -1,0 +1,10 @@
+2024-10-13T18:14:46.218Z Error: Nonexistent flag: --api-key
+2024-10-13T18:14:46.218Z See more help with --help
+2024-10-13T18:14:46.218Z     at validateArgs (/usr/local/lib/heroku/node_modules/@oclif/core/lib/parser/validate.js:10:19)
+2024-10-13T18:14:46.218Z     at validate (/usr/local/lib/heroku/node_modules/@oclif/core/lib/parser/validate.js:153:5)
+2024-10-13T18:14:46.218Z     at Object.parse (/usr/local/lib/heroku/node_modules/@oclif/core/lib/parser/index.js:19:35)
+2024-10-13T18:14:46.218Z     at async Create.parse (/usr/local/lib/heroku/node_modules/@oclif/core/lib/command.js:221:25)
+2024-10-13T18:14:46.218Z     at async Create.run (/usr/local/lib/heroku/lib/commands/apps/create.js:140:25)
+2024-10-13T18:14:46.218Z     at async Create._run (/usr/local/lib/heroku/node_modules/@oclif/core/lib/command.js:117:22)
+2024-10-13T18:14:46.218Z     at async Config.runCommand (/usr/local/lib/heroku/node_modules/@oclif/core/lib/config/config.js:314:25)
+2024-10-13T18:14:46.218Z     at async Object.run (/usr/local/lib/heroku/node_modules/@oclif/core/lib/main.js:89:16)
