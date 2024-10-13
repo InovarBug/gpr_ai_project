@@ -79,6 +79,8 @@ jupyter_server_terminals==0.5.3
 jupyterlab==4.2.5
 jupyterlab_pygments==0.3.0
 jupyterlab_server==2.27.3
+fastapi==0.95.2
+uvicorn==0.22.0
 keras==3.6.0
 kiwisolver==1.4.7
 libclang==18.1.1
