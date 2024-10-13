@@ -14,17 +14,20 @@ class CNNGPR:
 
     def _build_cnn_model(self):
         # Constrói e compila o modelo CNN
-        base_model = VGG16(weights='imagenet', include_top=False, input_shape=(256, 256, 3))
-        base_model.trainable = False  # Congela as camadas do modelo base
-
         model = Sequential([
-            base_model,
-            GlobalAveragePooling2D(),
+            Conv2D(32, (3, 3), activation='relu', input_shape=(256, 256, 1)),
+            MaxPooling2D((2, 2)),
+            Conv2D(64, (3, 3), activation='relu'),
+            MaxPooling2D((2, 2)),
+            Conv2D(128, (3, 3), activation='relu'),
+            MaxPooling2D((2, 2)),
+            Conv2D(128, (3, 3), activation='relu'),
+            Flatten(),
             Dense(128, activation='relu'),
             Dropout(0.5),
             Dense(64, activation='relu'),
             Dropout(0.5),
-            Dense(10, activation='softmax')
+            Dense(1, activation='sigmoid')
         ])
         model.compile(optimizer=tf.keras.optimizers.RMSprop(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
         return model
