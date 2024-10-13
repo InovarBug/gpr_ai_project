@@ -26,19 +26,20 @@ class CNNGPR:
             Dropout(0.5),
             Dense(10, activation='softmax')
         ])
-        model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+        model.compile(optimizer=tf.keras.optimizers.RMSprop(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
         return model
 
     def train(self, train_dir, validation_dir, epochs=10, batch_size=32):
         # Configura os geradores de dados para treinamento e validação
         train_datagen = ImageDataGenerator(
             rescale=1. / 255,
-            rotation_range=20,
-            width_shift_range=0.2,
-            height_shift_range=0.2,
-            shear_range=0.2,
-            zoom_range=0.2,
+            rotation_range=30,
+            width_shift_range=0.3,
+            height_shift_range=0.3,
+            shear_range=0.3,
+            zoom_range=0.3,
             horizontal_flip=True,
+            vertical_flip=True,
             fill_mode='nearest'
         )
 
