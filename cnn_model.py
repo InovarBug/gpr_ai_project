@@ -1,6 +1,6 @@
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, GlobalAveragePooling2D
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, UpSampling2D, Flatten, Dense, Dropout, GlobalAveragePooling2D
 from tensorflow.keras.applications import VGG16
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import numpy as np
@@ -14,22 +14,26 @@ class CNNGPR:
 
     def _build_cnn_model(self):
         # Constrói e compila o modelo CNN
-        model = Sequential([
-            Conv2D(32, (3, 3), activation='relu', input_shape=(256, 256, 1)),
-            MaxPooling2D((2, 2)),
-            Conv2D(64, (3, 3), activation='relu'),
-            MaxPooling2D((2, 2)),
-            Conv2D(128, (3, 3), activation='relu'),
-            MaxPooling2D((2, 2)),
-            Conv2D(128, (3, 3), activation='relu'),
-            Flatten(),
-            Dense(128, activation='relu'),
-            Dropout(0.5),
-            Dense(64, activation='relu'),
-            Dropout(0.5),
-            Dense(1, activation='sigmoid')
-        ])
-        model.compile(optimizer=tf.keras.optimizers.RMSprop(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
+        input_img = tf.keras.Input(shape=(256, 256, 1))
+        # Encoder
+        x = Conv2D(32, (3, 3), activation='relu', padding='same')(input_img)
+        x = MaxPooling2D((2, 2), padding='same')(x)
+        x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
+        x = MaxPooling2D((2, 2), padding='same')(x)
+        x = Conv2D(128, (3, 3), activation='relu', padding='same')(x)
+        encoded = MaxPooling2D((2, 2), padding='same')(x)
+
+        # Decoder
+        x = Conv2D(128, (3, 3), activation='relu', padding='same')(encoded)
+        x = UpSampling2D((2, 2))(x)
+        x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
+        x = UpSampling2D((2, 2))(x)
+        x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
+        x = UpSampling2D((2, 2))(x)
+        decoded = Conv2D(1, (3, 3), activation='sigmoid', padding='same')(x)
+
+        model = tf.keras.Model(input_img, decoded)
+        model.compile(optimizer='adam', loss='binary_crossentropy')
         return model
 
     def train(self, train_dir, validation_dir, epochs=10, batch_size=32):
@@ -52,19 +56,19 @@ class CNNGPR:
             train_dir,
             target_size=(256, 256),
             batch_size=batch_size,
-            class_mode='categorical',
+            class_mode=None,
             color_mode='grayscale'
         )
-
         validation_generator = validation_datagen.flow_from_directory(
             validation_dir,
             target_size=(256, 256),
             batch_size=batch_size,
-            class_mode='categorical',
+            class_mode=None,
             color_mode='grayscale'
         )
 
         # Treina o modelo
+        print("Iniciando o treinamento do modelo")
         history = self.model.fit(
             train_generator,
             steps_per_epoch=train_generator.samples // batch_size,
@@ -73,6 +77,9 @@ class CNNGPR:
             validation_steps=validation_generator.samples // batch_size
         )
 
+        print("Salvando o modelo treinado como cnn_model_trained.h5")
+        self.save_model('cnn_model_trained.h5')
+        print("Modelo salvo com sucesso")
         return history
 
     def predict(self, image):
@@ -80,7 +87,7 @@ class CNNGPR:
         image = cv2.resize(image, (256, 256))
         image = image.reshape(1, 256, 256, 1) / 255.0
         prediction = self.model.predict(image)
-        return np.argmax(prediction[0])
+        return prediction[0]
 
     def save_model(self, filepath):
         # Salva o modelo treinado
@@ -103,4 +110,6 @@ class CNNGPR:
         )
 
         results = self.model.evaluate(test_generator)
-        return dict(zip(self.model.metrics_names, results))
+if __name__ == '__main__':
+    cnn_gpr = CNNGPR()
+    cnn_gpr.train(train_dir='gpr_ai_project/data/train', validation_dir='gpr_ai_project/data/validation', epochs=5, batch_size=2)
